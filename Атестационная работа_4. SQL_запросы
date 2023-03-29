@@ -1,0 +1,44 @@
+SELECT contract_id, employees.name FROM executor
+  JOIN contract ON contract.id = executor.contract_id
+  JOIN customer ON customer.id = contract.customer_id
+  JOIN employees ON employees.id = executor.tab_no
+  JOIN department ON department.id = employees.department_id
+
+SELECT AVG(amount) FROM executor
+  JOIN contract ON contract.id = executor.contract_id
+  JOIN customer ON customer.id = contract.customer_id
+  JOIN employees ON employees.id = executor.tab_no
+  JOIN department ON department.id = employees.department_id
+WHERE employees.name = 'Ivan Ivanov'
+
+SELECT location, count(*) FROM executor 
+  JOIN contract ON contract.id = executor.contract_id
+  JOIN customer ON customer.id = contract.customer_id
+  JOIN employees ON employees.id = executor.tab_no
+  JOIN department ON department.id = employees.department_id
+GROUP BY location
+ORDER BY location
+
+SELECT count(*), amount FROM executor 
+  JOIN contract ON contract.id = executor.contract_id
+  JOIN customer ON customer.id = contract.customer_id
+  JOIN employees ON employees.id = executor.tab_no
+  JOIN department ON department.id = employees.department_id
+GROUP BY amount
+HAVING COUNT(amount) > 1
+
+SELECT customer_name, AVG(amount) FROM executor 
+  JOIN contract ON contract.id = executor.contract_id
+  JOIN customer ON customer.id = contract.customer_id
+  JOIN employees ON employees.id = executor.tab_no
+  JOIN department ON department.id = employees.department_id
+GROUP BY customer_name
+ORDER BY customer_name
+
+SELECT department.name, SUM(amount) FROM executor 
+  JOIN contract ON contract.id = executor.contract_id
+  JOIN customer ON customer.id = contract.customer_id
+  JOIN employees ON employees.id = executor.tab_no
+  JOIN department ON department.id = employees.department_id
+GROUP BY department.name
+ORDER BY department.name
